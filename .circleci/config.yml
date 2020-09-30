@@ -22,6 +22,10 @@ jobs:
       - run: mkdir install
       - run: touch install/READMEa.md
       - run: ls install
+      - run: mkdir bucket
+      # - run: cp -rv build/ bucket
+      - run: mv -v install/* bucket/
+      - run: ls bucket
       - persist_to_workspace:
           root: ~/
           paths:
@@ -56,7 +60,7 @@ jobs:
       - run: ls build
       - run: mkdir bucket
       # - run: cp -rv build/ bucket
-      - run: mv -v build/ bucket/
+      - run: mv -v build/* bucket/
       - run: ls bucket
       - run: pwd
       - run: ls
@@ -74,8 +78,8 @@ workflows:
           package_name: support-revas-app
           requires:
             - support:install
-      - upload:
-          name: support:upload
-          package_name: support-revas-app
-          requires:
-            - support:build
+      # - upload:
+      #     name: support:upload
+      #     package_name: support-revas-app
+      #     requires:
+      #       - support:build
