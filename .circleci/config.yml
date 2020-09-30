@@ -38,7 +38,7 @@ jobs:
       - run: ls
       - run: mkdir build
       - run: touch build/README.md
-      - run: ls build
+      - run: ls
       - persist_to_workspace:
           root: ~/
           paths:
@@ -48,15 +48,13 @@ jobs:
     parameters:
       package_name:
         type: string
-    working_directory: ~/www
     steps:
       - attach_workspace:
           at: ~/
+      - run: pwd
       - run: ls
-      - run: pwd
       - run: mkdir bucket
-      - run: pwd
-      - run: cp -a/. bucket/
+      - run: cp -a /. bucket/
       - run: cd bucket
       - run: pwd
       - run: ls
