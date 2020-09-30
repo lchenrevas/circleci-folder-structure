@@ -4,7 +4,7 @@ orbs:
   gcp-cli: circleci/gcp-cli@1.8
 
 defaults: &defaults
-  working_directory: ~/a
+  working_directory: ~/www
   docker:
     - image: vuejs/ci
 
@@ -16,7 +16,7 @@ jobs:
         type: string
     steps:
       - checkout:
-          path: ~/a
+          path: ~/www
       - run: pwd
       - run: ls
       - run: mkdir install
@@ -25,7 +25,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - a
+            - www
   build:
     <<: *defaults
     parameters:
@@ -34,11 +34,11 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - run: pwd
       - run: ls
       - run: mkdir build
       - run: touch build/README.md
       - run: ls build
-      - run: pwd
       - persist_to_workspace:
           root: ~/
           paths:
