@@ -17,15 +17,13 @@ jobs:
     steps:
       - checkout:
           path: ~/b
+      - run: pwd
       - run: ls
       - run: mkdir install
       - run: touch install/README.md
       - run: ls install
-      - run: pwd
       - persist_to_workspace:
           root: ~/
-          paths:
-            - b
   build:
     <<: *defaults
     parameters:
