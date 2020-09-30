@@ -4,7 +4,7 @@ orbs:
   gcp-cli: circleci/gcp-cli@1.8
 
 defaults: &defaults
-  working_directory: ~/www
+  working_directory: ~/a
   docker:
     - image: vuejs/ci
 
@@ -16,7 +16,7 @@ jobs:
         type: string
     steps:
       - checkout:
-          path: ~/www
+          path: ~/b
       - run: ls
       - run: mkdir install
       - run: touch install/README.md
@@ -25,7 +25,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - www
+            - b
   build:
     <<: *defaults
     parameters:
@@ -34,13 +34,11 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run:
-          name: Build VuePress
-          command: |
-            ls
-            mkdir install
-            ls
-            pwd
+      - run: ls
+      - run: mkdir build
+      - run: touch build/README.md
+      - run: ls build
+      - run: pwd
       - persist_to_workspace:
           root: ~/
           paths:
