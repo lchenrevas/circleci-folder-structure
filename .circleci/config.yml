@@ -1,0 +1,86 @@
+version: 2.1
+
+orbs:
+  gcp-cli: circleci/gcp-cli@1.8
+
+defaults: &defaults
+  working_directory: ~/www/<< parameters.package_name >>
+  docker:
+    - image: vuejs/ci
+
+jobs:
+  install:
+    <<: *defaults
+    parameters:
+      package_name:
+        type: string
+    steps:
+      - checkout:
+          path: ~/www
+      - run:
+          name: Install dependencies
+          command: |
+            ls
+            mkdir install
+            touch install/README.md
+            ls install
+            pwd
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - www/<< parameters.package_name >>
+  build:
+    <<: *defaults
+    parameters:
+      package_name:
+        type: string
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Build VuePress
+          command: |
+            ls
+            mkdir install
+            ls
+            pwd
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - www/<< parameters.package_name >>
+  upload:
+    parameters:
+      package_name:
+        type: string
+    working_directory: ~/www
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls
+      - run: pwd
+      - run: mkdir bucket
+      - run: pwd
+      - run: cp -a << parameters.package_name >>/. bucket/
+      - run: cd bucket
+      - run: pwd
+      - run: ls
+      
+
+workflows:
+  version: 2
+  support_install_build_upload:
+    jobs:
+      - install:
+          name: support:install
+          package_name: support-revas-app
+      - build:
+          name: support:build
+          package_name: support-revas-app
+          requires:
+            - support:install
+      - upload:
+          name: support:upload
+          package_name: support-revas-app
+          context: spike-static-to-bucket
+          requires:
+            - support:build
