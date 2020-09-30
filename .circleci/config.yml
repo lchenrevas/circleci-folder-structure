@@ -16,7 +16,7 @@ jobs:
         type: string
     steps:
       - checkout:
-          path: ~/b
+          path: ~/
       - run: pwd
       - run: ls
       - run: mkdir install
@@ -24,6 +24,8 @@ jobs:
       - run: ls install
       - persist_to_workspace:
           root: ~/
+          paths:
+            - b
   build:
     <<: *defaults
     parameters:
