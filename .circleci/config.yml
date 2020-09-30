@@ -15,7 +15,8 @@ jobs:
       package_name:
         type: string
     steps:
-      - checkout
+      - checkout:
+          path: ~/a
       - run: pwd
       - run: ls
       - run: mkdir install
