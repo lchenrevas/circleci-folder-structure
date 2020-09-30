@@ -17,14 +17,11 @@ jobs:
     steps:
       - checkout:
           path: ~/www
-      - run:
-          name: Install dependencies
-          command: |
-            ls
-            mkdir install
-            touch install/README.md
-            ls install
-            pwd
+      - run: ls
+      - run: mkdir install
+      - run: touch install/README.md
+      - run: ls install
+      - run: pwd
       - persist_to_workspace:
           root: ~/
           paths:
