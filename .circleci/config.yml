@@ -39,7 +39,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - run: pwd
-      - run: ls
+      - run: ls bucket
       - run: mkdir build
       - run: touch build/READMEb.md
       - run: ls
