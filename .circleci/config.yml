@@ -49,6 +49,7 @@ jobs:
           paths:
             - www
   upload:
+    <<: *defaults
     parameters:
       package_name:
         type: string
