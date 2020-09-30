@@ -4,7 +4,7 @@ orbs:
   gcp-cli: circleci/gcp-cli@1.8
 
 defaults: &defaults
-  working_directory: ~/www/<< parameters.package_name >>
+  working_directory: ~/www
   docker:
     - image: vuejs/ci
 
@@ -28,7 +28,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - www/<< parameters.package_name >>
+            - www
   build:
     <<: *defaults
     parameters:
@@ -47,7 +47,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - www/<< parameters.package_name >>
+            - www
   upload:
     parameters:
       package_name:
@@ -60,7 +60,7 @@ jobs:
       - run: pwd
       - run: mkdir bucket
       - run: pwd
-      - run: cp -a << parameters.package_name >>/. bucket/
+      - run: cp -a/. bucket/
       - run: cd bucket
       - run: pwd
       - run: ls
@@ -81,6 +81,5 @@ workflows:
       - upload:
           name: support:upload
           package_name: support-revas-app
-          context: spike-static-to-bucket
           requires:
             - support:build
