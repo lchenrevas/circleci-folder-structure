@@ -55,7 +55,8 @@ jobs:
       - run: ls
       - run: ls build
       - run: mkdir bucket
-      - run: cp -rv build/ bucket
+      # - run: cp -rv build/ bucket
+      - run: mv -v build/ bucket/
       - run: ls bucket
       - run: pwd
       - run: ls
